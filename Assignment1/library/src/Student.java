@@ -7,16 +7,18 @@ public class Student {
     public String name, ID;
     int maxBorrow;
     private final HashMap<Integer, ArrayList<Date>> borrowed = new HashMap<>();
+
     public Student(String name, String ID, int maxBorrow) {
         this.name = name;
         this.ID = ID;
         this.hash = (name + ID).hashCode();
     }
+
     public boolean borrowBook(Book book, Operator op) {
-        if(book.storage <= 0) return false;
+        if (book.storage <= 0) return false;
         ArrayList<Date> TimeStamps = borrowed.get(book.hash);
-        if(TimeStamps == null) borrowed.put(book.hash, new ArrayList<>());
-        else if (TimeStamps.size() >= maxBorrow) return false;
+        if (TimeStamps == null) borrowed.put(book.hash, new ArrayList<>());
+        if (TimeStamps.size() >= maxBorrow) return false;
         else {
             Date now = new Date();
             TimeStamps.add(now);
@@ -29,8 +31,8 @@ public class Student {
 
     public boolean returnBook(Book book, Operator op) {
         ArrayList<Date> TimeStamps = borrowed.get(book.hash);
-        if(TimeStamps == null) borrowed.put(book.hash, new ArrayList<>());
-        else if (TimeStamps.isEmpty()) return false;
+        if (TimeStamps == null) borrowed.put(book.hash, new ArrayList<>());
+        if (TimeStamps.isEmpty()) return false;
         else {
             Date now = new Date();
             TimeStamps.remove(0);
